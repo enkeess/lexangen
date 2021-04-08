@@ -13,6 +13,8 @@
 #include <set>
 #include <map>
 
+// #include "States.h"
+
 using namespace rapidjson;
 
 class Transition {
@@ -37,6 +39,7 @@ public:
 class State {
     bool isStartState;
     bool isEndState;
+    bool isSubGraph;
     std::string name;
     std::vector<Transition> transitions;
 
@@ -57,6 +60,9 @@ public:
         this->isEndState = isEndState;
     }
 
+    void setSubGraph(bool isSubGraph) {
+        this->isSubGraph = isSubGraph;
+    }
     std::string getName() {
         return name;
     }

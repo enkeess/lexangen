@@ -1,10 +1,10 @@
 {
     "graph" : [
         {   
-            "name" : "main",
+            "name" : "_main",
             "start" : "A", 
             "end"   : [
-                            "B"
+                            "B", "_C"
                         ], 
             "states": [
                         {
@@ -39,20 +39,34 @@
                                 },
 
                                 {
-                                    "to"   :  "C",
+                                    "to"   :  "_C",
                                     "mark"  :  null,
                                     "labels" :  [
                                                 "c"
                                     ]
                                 }
                             ]
-                        }     
+                        },
+
+                        {
+                            "name" : "_C",
+                            "transitions" : [
+                                {
+                                    "to"   :  "B",
+                                    "mark"  :  null,
+                                    "labels" :  [
+                                                "b"
+                                    ]
+                                }
+                            ]
+                        }
+
             ]
         },
 
         {
-            "name" : "C",
-             "start" : "A",  
+            "name" : "_C",
+            "start" : "A",  
             "end"   : [
                         "A"
                     ],  
