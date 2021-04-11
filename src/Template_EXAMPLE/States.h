@@ -16,6 +16,11 @@ enum State { // множество состояний
     FILE_END
 };
 
+enum Bracket {
+    OPEN, 
+    CLOSE
+};
+
 template <typename T>
 class setWrapper {
     std::set<T> curSet;
@@ -32,11 +37,11 @@ public:
     }
 };
 
-template <typename T, typename P>
+template <class T, class P>
 class mapWrapper {
     std::map<T, P> curMap;
 public:
-    mapWrapper(std::list< std::pair<T, P> >list) {
+    mapWrapper(const std::list< std::pair<T, P> > list) {
 
         for(auto it = list.begin(); it != list.end(); it++) {
             curMap[it->first] = it->second;
@@ -46,7 +51,6 @@ public:
     std::map<T, P> getMap() {
         return curMap;
     }
-
 };
 
 typedef std::set<State> setOfState;
@@ -58,7 +62,6 @@ std::map<State, State> startStates = mapWrapper<State, State>( {
                                                     {MAIN, MAIN_A},
                                                     {C, C_A}
                                     }).getMap();
-
 
 std::map<State, setOfState > endStates = mapWrapper<State, setOfState>({
                                         {MAIN,  setWrapper<State>( {MAIN_B, C}).getSet()},
@@ -160,8 +163,42 @@ std::map<State, mapMark> marks = mapWrapper<State, mapMark>({
                                  }).getMap();
 
            
+class Mark {
+    Bracket bracket;  
+    std::string id;
 
+public:
+    Mark(Bracket bracket, const char* str) {
+        this->bracket = bracket;
+        this->id = std::string(str);
+    };
 
+    Mark(const Mark& mark) {
+        bracket = mark.bracket;
+        id = mark.id;
+    }
+
+    const Mark& operator= (const Mark& mark) {
+        if (this == &mark)
+        return *this;
+
+        this->bracket = mark.bracket;
+        this->id = mark.id;
+
+        return *this;
+    }
+};
+
+Mark p_1(OPEN, "a");
+Mark p_2(OPEN, "b");
+
+std::pair<State, Mark> keys(MAIN, p_1);
+std::pair<State, Mark> keys_test(MAIN, Mark(OPEN, "c"));
+
+// std::map<State, Mark> test = mapWrapper<State, Mark>({
+//                              {MAIN, popka}
+                            
+//                              }).getMap();
 
 
 

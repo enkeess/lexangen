@@ -12,16 +12,22 @@
                             "transitions" : [
                                 {
                                     "to"   :  "A",
-                                    "mark"  :  "[",
+                                    "mark"  :  {
+                                            "dir" : "IN",
+                                            "id"  : null
+                                    }
                                     "labels" :  [
                                                 "a"
                                     ]
                                 },
                                 {
                                     "to"   :  "B",
-                                    "mark"  :  "]",
+                                    "mark"  :  {
+                                                "dir" : "OUT",
+                                                "id"  : null
+                                    },
                                     "labels" :  [
-                                                "b"
+                                                "b", "ccc"
                                     ]
                                 }
                             ]
@@ -32,7 +38,10 @@
                             "transitions" : [
                                 {
                                     "to"   :  "B",
-                                    "mark"  :  "]",
+                                    "mark"  :  {
+                                        "dir" : "OUT",
+                                        "id"  : null
+                                    },
                                     "labels" :  [
                                                 "b"
                                     ]

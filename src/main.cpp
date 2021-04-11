@@ -1,11 +1,9 @@
 
-// #include "test_func.h"
-// #include "json_parser.h"
-
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/istreamwrapper.h"
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -39,7 +37,6 @@ public:
 class State {
     bool isStartState;
     bool isEndState;
-    bool isSubGraph;
     std::string name;
     std::vector<Transition> transitions;
 
@@ -75,7 +72,6 @@ class Graph {
     std::string start;  // начальное состояние
     std::set<std::string> end; // конечные состояния
     std::vector<State> states;    // состояния
-    std::vector<Graph> subGraphs; // подграфы
 
 public:
 

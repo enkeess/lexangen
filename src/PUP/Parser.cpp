@@ -7,18 +7,18 @@
 
 class Parser {
     Scanner S;
-    State curState; // можно сразу брать в Scanner
-    State curGraph;
+    STATE_NAME curState; // можно сразу брать в Scanner
+    STATE_NAME curGraph;
     std::string curStr;
-    std::string testStr;
-    std::stack<State> stackTrace;
+    std::list<Mark> listOfMarks;
+    std::stack<STATE_NAME> stackTrace;
 
 private:
-    State getNewState() {
+    STATE_NAME getNewState() {
         
         curStr = S.getLex();
         curState = S.getState();
-        State newState = findState();
+        STATE_NAME newState = findState();
         
         if(newState == ERROR) 
             return newState;
@@ -26,9 +26,9 @@ private:
         return newState;
     }
 
-    State findState() {
-        for(auto& i: mapGraph[curGraph][curState]) {            
-            if(i.second.count(curStr)) return i.first;
+    STATE_NAME findState() {
+        for(auto& i: graphs[curGraph].getState(curState).getMapTransitions()) {
+            if(i.second.getSetLabels().count(curStr)) return i.first;    
         }
 
         if(curStr == "" && S.isEof()) return FILE_END;
@@ -40,20 +40,16 @@ public:
     Parser(const char* filename) : S(filename), curState(MAIN), curGraph(MAIN){
         stackTrace.push(MAIN);
     };
-
-    void printTest() {
-        std::cout << "TEST_STR: " << testStr << '\n';
-    }
-
     
     bool checkBrakesSystem() {
-        std::stack<bool> check;
-
-        for(auto& c : testStr) {
-            if(c == '[') 
-                check.push(1);
-            if(c == ']') {
-                if(check.empty()) return false;
+        std::stack<Mark> check;
+        for(auto& it: listOfMarks) {
+            if(it.getBracket() == OPEN) {
+                check.push(it);
+            }
+            if(it.getBracket() == CLOSE) {
+                if(check.empty() || check.top().getId() != it.getId()) 
+                    return false;
                 check.pop();
             }
         }
@@ -64,10 +60,11 @@ public:
     bool run() {
         int i = 0;
         while(true) {
-            State newState = getNewState(); // тут мы получили новое состояние надо его проверить
+            STATE_NAME newState = getNewState(); // тут мы получили новое состояние надо его проверить
+            std::cout << "NEW_STATE: " << newState << "  ---  " << curStr <<'\n';
             switch (newState) {
                 case FILE_END:  // нужно проверить реально ли это конец графа
-                    while(endStates[curGraph].count(curState)) {
+                    while(graphs[curGraph].getEnds().count(curState)) {
                         curState = curGraph;
                         stackTrace.pop();
                         curGraph = stackTrace.empty() ? MAIN : stackTrace.top();
@@ -75,19 +72,16 @@ public:
 
                     if(stackTrace.empty()){
                         std::cout << "Congratulations\n";
-                        return 1;
-                        // return FILE_END;
+                        return checkBrakesSystem();
                     } else {
                         std::cout << "ERROR FILE_END\n";
                         return 0;
-                        // return ERROR;
                     }
                     
                     break;
                     
                 case EMPTY_STR:
-                    std::cout << "HERE\n";
-                    if(endStates[curGraph].count(curState)) { // пустая строка и конечное состояние какого то графа
+                    if(graphs[curGraph].getEnds().count(curState)) { // пустая строка и конечное состояние какого то графа
                         curState = curGraph;
                         if(!stackTrace.empty()) stackTrace.pop();
                         curGraph = stackTrace.empty() ? ERROR : stackTrace.top();
@@ -95,19 +89,17 @@ public:
                     else {
                         std::cout << "ERROR EMPTY_STR\n";
                         return 0;
-                        // return ERROR;
                     }
+
                     break;
 
                 case ERROR:
                     std::cout << "STATE ERROR\n";
                     return 0;
-                    // return ERROR;
                     
                 default:
-                    testStr += marks[curState][newState]; 
+                    listOfMarks.push_back(graphs[curGraph].getState(curState).getTransition(newState).getMark());
                     if(graphs.count(newState)) {
-                        
                         stackTrace.push(newState);
                         curGraph = curState = newState;
                         S.setState(newState);
@@ -125,11 +117,11 @@ public:
 
 int main() {
 
-    p_1 = p_2;
+    std::cout << "PUP\n";
     Parser P("/Users/nicknamme/Documents/lexangen/ex/input.txt");
     P.run();
-    P.printTest();
-    std::cout << "CHECK_BRAKE_SYSTEM: " << P.checkBrakesSystem() << '\n';
+
+    std::cout << P.checkBrakesSystem() << '\n';
 
     return 0;
 }
