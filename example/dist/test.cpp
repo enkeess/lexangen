@@ -6,7 +6,7 @@
 
 int main() {
     // Mark();
-    Parser P("/Users/nicknamme/Documents/lexangen/ex/input.txt");
+    Parser P("/Users/nicknamme/Documents/lexangen/example/input.txt");
     P.run();
     return 0;
 }

@@ -11,8 +11,6 @@
 #include <set>
 #include <map>
 
-// #include "States.h"
-
 using namespace rapidjson;
 
 class Transition {
@@ -57,9 +55,6 @@ public:
         this->isEndState = isEndState;
     }
 
-    void setSubGraph(bool isSubGraph) {
-        this->isSubGraph = isSubGraph;
-    }
     std::string getName() {
         return name;
     }
@@ -95,10 +90,6 @@ public:
         this->states = states;
     }
 
-    void setSubGraphs(std::vector<Graph> subGraphs) {
-        this->subGraphs = subGraphs;
-    }
-
     std::string getStart() {
         return start;
     }
@@ -124,7 +115,6 @@ public:
     }
 
     Graph parseGraph();
-  
 };
 
 Graph FileReader::parseGraph() {
@@ -136,9 +126,7 @@ Graph FileReader::parseGraph() {
     assert(doc.HasMember("graph"));
     const Value& graph = doc["graph"];
 
-
     assert(graph.IsArray());
-    
     
     Graph main = readGraph(graph[0]);
 
@@ -243,9 +231,6 @@ Transition FileReader::readTransition(const Value& transition) {
 
     return curTransition;
 }
-
-
-
 
 int main() {
     std::string filename = "/Users/nicknamme/Documents/lexangen/ex/ex_1.json";

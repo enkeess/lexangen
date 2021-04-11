@@ -88,7 +88,8 @@ bool Parser::run() {
                 return 0;
                 
             default:
-                listOfMarks.push_back(graphs[curGraph].getState(curState).getTransition(newState).getMark());
+                Mark mark = graphs[curGraph].getState(curState).getTransition(newState).getMark();
+                if(mark.getBracket()!= NONE) listOfMarks.push_back(mark);
                 if(graphs.count(newState)) {
                     stackTrace.push(newState);
                     curGraph = curState = newState;
