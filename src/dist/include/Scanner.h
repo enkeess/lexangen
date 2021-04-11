@@ -1,6 +1,7 @@
-#pragma once
+#ifndef SCANNER_H
+#define SCANNER_H
 
-#include "pop.h"
+#include "Dependencies.h"
 
 #include <fstream>
 
@@ -36,3 +37,5 @@ public:
 
     std::string getLex();
 };
+
+#endif

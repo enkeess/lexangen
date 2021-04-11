@@ -1,13 +1,9 @@
-#pragma once
+#ifndef DEPENDENCIES_H
+#define DEPENDENCIES_H
 
-#include "STATE_NAME.h"
-#include "Mark.h"
-#include "Transition.h"
-#include "State.h"
 #include "Graph.h"
-#include <map>
 
-Graph _main (
+const Graph _main (
     MAIN_A,
     {
         MAIN_B,
@@ -71,7 +67,7 @@ Graph _main (
     }
 );
 
-Graph _C (
+const Graph _C (
     C_A,
     {
         C_A
@@ -98,7 +94,7 @@ Graph _C (
     }
 );
 
-std::map<STATE_NAME, Graph> graphs = 
+const std::map<STATE_NAME, Graph> graphs = 
                          {
                             {
                                 MAIN, 
@@ -110,3 +106,5 @@ std::map<STATE_NAME, Graph> graphs =
                                 _C
                             }                                
                          };
+
+#endif

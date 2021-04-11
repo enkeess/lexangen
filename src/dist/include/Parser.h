@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PARSER_H
+#define PARSER_H
 
 #include "Scanner.h"
 #include <stack>
@@ -22,3 +23,5 @@ public:
     
     bool run(); 
 };
+
+#endif

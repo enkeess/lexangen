@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STATE_H
+#define STATE_H
 
 #include "STATE_NAME.h"
 #include "Transition.h"
@@ -20,3 +21,5 @@ public:
     std::map<STATE_NAME, Transition> getMapTransitions();
     Transition getTransition(STATE_NAME name);
 };
+
+#endif

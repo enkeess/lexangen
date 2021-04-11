@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STATE_NAME_H
+#define STATE_NAME_H
 
 enum STATE_NAME { 
 // graph _main
@@ -13,3 +14,5 @@ enum STATE_NAME {
     EMPTY_STR,
     FILE_END
 };
+
+#endif

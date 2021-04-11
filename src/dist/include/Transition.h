@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TRANSITION_H
+#define TRANSITION_H
 
 #include "Mark.h"
 #include <set>
@@ -20,3 +21,5 @@ public:
     Mark getMark();
     std::set<std::string> getSetLabels();
 };
+
+#endif

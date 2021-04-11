@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GRAPH_H
+#define GRAPH_H
+
 #include "State.h"
 
 class Graph {
@@ -21,3 +23,5 @@ public:
     std::map<STATE_NAME, State> getMapStates();
     State getState(const STATE_NAME name);
 };
+
+#endif
