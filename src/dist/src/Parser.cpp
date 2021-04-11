@@ -1,4 +1,5 @@
 #include "../include/Parser.h"
+#include "../include/Dependencies.h"
 #include <iostream>
 
 STATE_NAME Parser::getNewState() {

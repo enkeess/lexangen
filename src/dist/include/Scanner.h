@@ -2,6 +2,7 @@
 #define SCANNER_H
 
 #include "Dependencies.h"
+#include "Graph.h"
 
 #include <fstream>
 

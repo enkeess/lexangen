@@ -1,4 +1,5 @@
 #include "../include/Scanner.h"
+#include "../include/Dependencies.h"
 
 void Scanner::readIntoBuf() {
     while(!inputStreamFile.eof()) {
