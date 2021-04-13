@@ -51,6 +51,8 @@
 ### Запуск генератора 
 
 ``` sh
+git clone https://github.com/enkeess/lexangen.git
+cd lexangen
 make
 ./lexangen path
 ```
