@@ -13,7 +13,7 @@
                                 {
                                     "to"   :  "A",
                                     "mark"  :  {
-                                            "dir" : "IN",
+                                            "dir" : "OPEN",
                                             "id"  : null
                                     },
                                     "labels" :  [
@@ -23,11 +23,11 @@
                                 {
                                     "to"   :  "B",
                                     "mark"  :  {
-                                                "dir" : "OUT",
+                                                "dir" : "CLOSE",
                                                 "id"  : null
                                     },
                                     "labels" :  [
-                                                "b", "ccc"
+                                                "b"
                                     ]
                                 }
                             ]
@@ -39,7 +39,7 @@
                                 {
                                     "to"   :  "B",
                                     "mark"  :  {
-                                        "dir" : "OUT",
+                                        "dir" : "CLOSE",
                                         "id"  : null
                                     },
                                     "labels" :  [

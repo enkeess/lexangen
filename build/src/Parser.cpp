@@ -44,14 +44,16 @@ bool Parser::checkBrakesSystem() {
         }
     }
 
-    return true;
+    
+
+    return check.empty();
 }
 
 bool Parser::run() {
     int i = 0;
     while(true) {
         STATE_NAME newState = getNewState(); // тут мы получили новое состояние надо его проверить
-        std::cout << "NEW_STATE: " << newState << "  ---  " << curStr <<'\n';
+        // std::cout << "NEW_STATE: " << newState << "  ---  " << curStr <<'\n';
         switch (newState) {
             case FILE_END:  // нужно проверить реально ли это конец графа
                 while(graphs[curGraph].getEnds().count(curState)) {
@@ -62,6 +64,7 @@ bool Parser::run() {
 
                 if(stackTrace.empty()){
                     std::cout << "Congratulations\n";
+                    std::cout << "Brakes system is " << (checkBrakesSystem() ? "correct" : "uncorrect") << '\n';
                     return checkBrakesSystem();
                 } else {
                     std::cout << "ERROR FILE_END\n";

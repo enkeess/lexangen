@@ -221,4 +221,6 @@ void FileReader::parseJson() {
     dependencies_cpp << getTabs() + "};\n\n";
 
     outClose();
+
+    std::cout << "DONE\n";
 }

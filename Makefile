@@ -1,10 +1,8 @@
-RESULT = lib/
 BIN = bin/
 TARGET = lexangen
 SRC = src/
 
-
-all:$(TARGET)
+all: clean bin $(TARGET)
 
 $(TARGET): $(BIN)FIleReader.o 
 	g++ -std=c++11  $(BIN)FIleReader.o main.cpp -o $(TARGET)
@@ -17,3 +15,4 @@ bin:
 
 clean:
 	rm -rf $(BIN)*.o
+	rm -f $(TARGET)

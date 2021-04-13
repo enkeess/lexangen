@@ -1,13 +1,13 @@
 RESULT = lib/
 BIN = bin/
-TARGET = $(BIN)libtranslator.so
+TARGET = syn-analyzer
 SRC = src/
 TEST = test/
 
-all:$(TARGET)
+all: bin clean $(TARGET)
 
 $(TARGET): $(BIN)Mark.o $(BIN)Transition.o $(BIN)State.o $(BIN)Graph.o $(BIN)Dependencies.o $(BIN)Scanner.o $(BIN)Parser.o 
-	g++ -std=c++11 -shared -o $(TARGET) $(BIN)Mark.o $(BIN)Transition.o $(BIN)State.o $(BIN)Graph.o $(BIN)Dependencies.o $(BIN)Scanner.o $(BIN)Parser.o 
+	g++ -std=c++11 $(BIN)Mark.o $(BIN)Transition.o $(BIN)State.o $(BIN)Graph.o $(BIN)Dependencies.o $(BIN)Scanner.o $(BIN)Parser.o main.cpp -o $(TARGET)
 
 
 $(BIN)Mark.o:
@@ -25,10 +25,9 @@ $(BIN)Scanner.o:
 $(BIN)Parser.o: 
 	g++ -fPIC -c -std=c++11 -o $(BIN)Parser.o $(SRC)Parser.cpp
 
-install:
-	install $(TARGET) $(RESULT)
 bin:
 	mkdir bin
 
 clean:
-	rm -rf $(BIN)*.o
+	rm -rf $(BIN)Dependencies.o
+	rm -f $(TARGET)
