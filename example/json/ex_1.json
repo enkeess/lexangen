@@ -14,17 +14,18 @@
                                     "to"   :  "A",
                                     "mark"  :  {
                                             "dir" : "OPEN",
-                                            "id"  : null
+                                            "id"  : "a"
                                     },
                                     "labels" :  [
-                                                "a"
+                                            "Hello, ",
+                                            "world! "
                                     ]
                                 },
                                 {
                                     "to"   :  "B",
                                     "mark"  :  {
                                                 "dir" : "CLOSE",
-                                                "id"  : null
+                                                "id"  : "b"
                                     },
                                     "labels" :  [
                                                 "b"
@@ -40,7 +41,7 @@
                                     "to"   :  "B",
                                     "mark"  :  {
                                         "dir" : "CLOSE",
-                                        "id"  : null
+                                        "id"  : "b"
                                     },
                                     "labels" :  [
                                                 "b"

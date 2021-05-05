@@ -33,6 +33,11 @@ Parser::Parser(const char* filename) :
 
 bool Parser::checkBrakesSystem() {
     std::stack<Mark> check;
+    std::cout << "Brakes system -> ";
+    for(auto& it: listOfMarks) {
+        std::cout << (it.getBracket() == OPEN ? "(" : ")") << (it.getId() != "" ? "_{" + it.getId() + "} " : " ");
+    }
+    std::cout << '\n';
     for(auto& it: listOfMarks) {
         if(it.getBracket() == OPEN) {
             check.push(it);
@@ -51,6 +56,7 @@ bool Parser::checkBrakesSystem() {
 
 bool Parser::run() {
     int i = 0;
+    std::cout << "***** TRASE ROUTE *****\n";
     while(true) {
         STATE_NAME newState = getNewState(); // тут мы получили новое состояние надо его проверить
         // std::cout << "NEW_STATE: " << newState << "  ---  " << curStr <<'\n';
@@ -64,8 +70,9 @@ bool Parser::run() {
 
                 if(stackTrace.empty()){
                     std::cout << "Congratulations\n";
-                    std::cout << "Brakes system is " << (checkBrakesSystem() ? "correct" : "uncorrect") << '\n';
-                    return checkBrakesSystem();
+                    bool check = checkBrakesSystem();
+                    std::cout << "Brakes system is " << (check ? "correct" : "uncorrect") << '\n';
+                    return check;
                 } else {
                     std::cout << "ERROR FILE_END\n";
                     return 0;
@@ -91,6 +98,7 @@ bool Parser::run() {
                 return 0;
                 
             default:
+                std::cout << mapStateName[curState] + " -> " + mapStateName[newState] + ", by: " + curStr + '\n';
                 Mark mark = graphs[curGraph].getState(curState).getTransition(newState).getMark();
                 if(mark.getBracket()!= NONE) listOfMarks.push_back(mark);
                 if(graphs.count(newState)) {

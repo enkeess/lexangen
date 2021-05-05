@@ -18,12 +18,19 @@ using namespace rapidjson;
 
 class FileReader {
     std::ifstream inputStreamFile;
+
     std::ofstream stateName_h;
+    std::ofstream stateName_cpp;
+    
     std::ofstream dependencies_h;
     std::ofstream dependencies_cpp;
+    
     std::set<std::string> stateNames;
+    
     std::vector<std::string> graphNames;
     std::vector<std::string> upperGraphNames;
+    
+    std::string tabShift;
     int tabCounter;
 
 private:
@@ -43,6 +50,7 @@ private:
 
 public:
     FileReader(const char* inputStreamFile);
+    ~FileReader();
     void parseJson();
 };
 

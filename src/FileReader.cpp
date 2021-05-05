@@ -1,7 +1,28 @@
 #include "../include/FileReader.h"
 
+
+FileReader::FileReader(const char* inputStreamFile) :
+    inputStreamFile(inputStreamFile),
+    stateName_h("build/include/STATE_NAME.h"),
+    stateName_cpp("build/src/STATE_NAME.cpp"),
+    dependencies_h("build/include/Dependencies.h"),
+    dependencies_cpp("build/src/Dependencies.cpp"),
+    tabCounter(0)
+{
+    assert(inputStreamFile);
+}
+
+FileReader::~FileReader() {
+    stateName_h.close();
+    stateName_cpp.close();
+    dependencies_h.close();
+    dependencies_cpp.close();
+}
+
+
 void FileReader::outOpen() {
-    stateName_h << "#ifndef STATE_NAME_H\n#define STATE_NAME_H\n\nenum STATE_NAME {\n";
+    stateName_h << "#ifndef STATE_NAME_H\n#define STATE_NAME_H\n\n#include <map>\n#include<string>\n\nenum STATE_NAME {\n";
+    stateName_cpp << "#include \"../include/STATE_NAME.h\"\n\nstd::map<STATE_NAME, std::string> mapStateName = {\n";
     dependencies_h << "#ifndef DEPENDENCIES_H\n#define DEPENDENCIES_H\n\n#include \"Graph.h\"\n\n";
     dependencies_cpp << "#include \"../include/Dependencies.h\"\n\n";
 }
@@ -10,13 +31,15 @@ void FileReader::outClose() {
     for(auto& it: stateNames) {
         stateName_h << '\t' << it << ",\n";
     }
+
+    for(auto& it : stateNames) {
+        stateName_cpp << "\t{" << it << ", \"" << it << (it != *(--stateNames.end()) ? "\"},\n" : "\"}\n};");   
+    }
+
     stateName_h << "\tERROR,\n\tEMPTY_STR,\n\tFILE_END\n};\n";
+    stateName_h << "\nextern std::map<STATE_NAME, std::string> mapStateName;\n";
     stateName_h << "\n#endif";
     dependencies_h << "\nextern std::map<STATE_NAME, Graph> graphs;\n\n#endif";
-    
-    stateName_h.close();
-    dependencies_h.close();
-    dependencies_cpp.close();
 }
 
 std::string FileReader::getTabs(){
@@ -49,6 +72,8 @@ void FileReader::readMark(const Value& mark) {
     assert(mark.HasMember("dir"));
     std::string dir = mark["dir"].GetString();
 
+    assert(dir == "OPEN" || dir == "CLOSE");
+
     assert(mark.HasMember("id"));
     if(mark["id"].IsNull()) {
         dependencies_cpp << getTabs() + "Mark(" + dir+ "),\n";
@@ -76,7 +101,10 @@ void FileReader::readTransition(const Value& transition) {
 
     dependencies_cpp << getTabs() + "{\n";
     tabCounter++;
+    // тут надо собирать set из переходов и чекать чтобы не было пересечений first
     for(int i = 0; i < labels.Size(); i++) {
+        // assert(labels[i].GetString() != ""); // проверка на пустую строку 
+        
         dependencies_cpp << getTabs() + "\"" + labels[i].GetString() + "\""+ (i != labels.Size()-1 ? ",\n" : "\n");
     }
     tabCounter--;
@@ -174,16 +202,6 @@ void FileReader::readGraph(const Value& graph) {
     dependencies_cpp << getTabs() + ");\n\n";
 
     return ;
-}
-
-FileReader::FileReader(const char* inputStreamFile) :
-    inputStreamFile(inputStreamFile),
-    stateName_h("dist/include/STATE_NAME.h"),
-    dependencies_h("dist/include/Dependencies.h"),
-    dependencies_cpp("dist/src/Dependencies.cpp"),
-    tabCounter(0)
-{
-    assert(inputStreamFile);
 }
 
 void FileReader::parseJson() {

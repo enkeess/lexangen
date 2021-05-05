@@ -15,9 +15,13 @@ Graph _main(
 					{
 						MAIN_A,
 						Transition(
-							Mark(OPEN),
-							{
+							Mark(
+								OPEN,
 								"a"
+							),
+							{
+								"Hello, ",
+								"world! "
 							}
 						)
 					},
@@ -25,7 +29,10 @@ Graph _main(
 					{
 						MAIN_B,
 						Transition(
-							Mark(CLOSE),
+							Mark(
+								CLOSE,
+								"b"
+							),
 							{
 								"b"
 							}
@@ -42,7 +49,10 @@ Graph _main(
 					{
 						MAIN_B,
 						Transition(
-							Mark(CLOSE),
+							Mark(
+								CLOSE,
+								"b"
+							),
 							{
 								"b"
 							}

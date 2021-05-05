@@ -1,6 +1,9 @@
 #ifndef STATE_NAME_H
 #define STATE_NAME_H
 
+#include <map>
+#include<string>
+
 enum STATE_NAME {
 	C,
 	C_A,
@@ -11,5 +14,7 @@ enum STATE_NAME {
 	EMPTY_STR,
 	FILE_END
 };
+
+extern std::map<STATE_NAME, std::string> mapStateName;
 
 #endif
