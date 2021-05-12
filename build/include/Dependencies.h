@@ -4,7 +4,6 @@
 #include "Graph.h"
 
 extern Graph _main;
-extern Graph _C;
 
 extern std::map<STATE_NAME, Graph> graphs;
 

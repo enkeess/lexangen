@@ -14,11 +14,10 @@
                                     "to"   :  "A",
                                     "mark"  :  {
                                             "dir" : "OPEN",
-                                            "id"  : "a"
+                                            "id"  : "b"
                                     },
                                     "labels" :  [
-                                            "Hello, ",
-                                            "world! "
+                                            "a"
                                     ]
                                 },
                                 {

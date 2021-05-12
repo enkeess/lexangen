@@ -1,0 +1,55 @@
+{
+    "graph" : [
+        {   
+            "name" : "_main",
+            "start" : "A", 
+            "end"   : [
+                            "B"
+                        ], 
+            "states": [
+                        {
+                            "name" : "A",
+                            "transitions" : [
+                                {
+                                    "to"   :  "A",
+                                    "mark"  :  {
+                                            "dir" : "OPEN",
+                                            "id"  : null
+                                    },
+                                    "labels" :  [
+                                            "a"
+                                    ]
+                                },
+                                {
+                                    "to"   :  "B",
+                                    "mark"  :  {
+                                                "dir" : "CLOSE",
+                                                "id"  : null
+                                    },
+                                    "labels" :  [
+                                            "b"
+                                    ]
+                                }
+                            ]
+                        },
+
+                        {
+                            "name" : "B",
+                            "transitions" : [
+                                {
+                                    "to"   :  "B",
+                                    "mark"  :  {
+                                        "dir" : "CLOSE",
+                                        "id"  : null
+                                    },
+                                    "labels" :  [
+                                            "b"
+                                    ]
+                                }
+                            ]
+                        }
+            ]
+        }
+    ]   
+
+}
