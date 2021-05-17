@@ -66,14 +66,14 @@ make
 ### Запуск сгенерированного синтаксического анализатора
 ``` sh
 cd build
-./sin-analyzer path
+./syn-analyzer path
 ```
 
 ### Самостоятельная компиляция синтаксического анализатора
 ``` sh
 cd build
 make
-./sin-analyzer path
+./syn-analyzer path
 ```
 
 Пример вызова:
